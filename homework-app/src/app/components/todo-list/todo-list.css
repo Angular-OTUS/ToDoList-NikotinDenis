@@ -6,12 +6,12 @@
     box-sizing: border-box;
 }
 
-ul{
+ul {
     margin: 0px;
     padding: 0px;
 }
 
-li{
+li {
     list-style: none;
 }
 
@@ -24,22 +24,12 @@ li{
     padding: 10px 20px;
 }
 
-.item {
-    margin-bottom: 10px; 
-    background-color: gainsboro;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0px 10px;
-    height: 50px;
-}
 
-.item-button{
+.item-button {
     height: 100%;
 }
 
-.add-item-container{
+.add-item-container {
     margin-top: 10px;
     height: 50px;
     width: 100%;
@@ -47,21 +37,26 @@ li{
     align-items: center;
 }
 
-.add-item-input{
+.add-item-input {
     height: 100%;
     width: 100%;
     font-size: 12pt;
     padding: 0px 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(249, 249, 249);
+    transition: ease-in 0.3s;
 }
 
-.add-item-button{
-    height: 90%;
-    background-color: blueviolet;
-    color: white;
-    font-weight: 500;
-    font-size: 16pt;
-    border: none;
-    border-radius: 2px;
-    margin-left: 5px;
-    min-width: 100px;
+.add-item-input:focus-visible{
+    outline: 1px solid rgb(167, 167, 167);
+}
+
+
+.button--add {
+    background-color: rgb(21, 125, 21);
+}
+
+.button--add:disabled{
+    opacity: 0.5;
 }
