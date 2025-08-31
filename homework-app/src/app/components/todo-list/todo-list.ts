@@ -21,11 +21,7 @@ export class TodoList {
   ]
 
   protected deleteItem(id: number) {
-
-    let index = this.todoList.findIndex((item) =>
-      item.id == id
-    );
-    this.todoList.splice(index, 1);
+    this.todoList = this.todoList.filter( (item) => id !== item.id);
   }
 
   protected addItem() {
