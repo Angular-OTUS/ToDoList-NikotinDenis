@@ -8,7 +8,10 @@
     </ul>
 
     <div class="add-item-container">
-        <input [(ngModel)]="inputedValue" class="add-item-input" placeholder="Add your new todo" type="text">
+        <mat-form-field>
+            <!-- <input [(ngModel)]="inputedValue" class="add-item-input" placeholder="Add your new todo" type="text"> -->
+            <input matInput [(ngModel)]="inputedValue"  placeholder="Add your new todo" type="text">
+        </mat-form-field>
         <button (click)="addItem()" [disabled]="inputedValue.length == 0" class="button button--add">Add task</button>
     </div>
 

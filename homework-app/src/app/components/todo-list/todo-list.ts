@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ListItem, ToDoListItem } from '../to-do-list-item/to-do-list-item';
+import { MatInput, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-todo-list',
-  imports: [CommonModule, FormsModule, ToDoListItem],
+  imports: [CommonModule, FormsModule, ToDoListItem, MatInputModule],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.css'
 })
