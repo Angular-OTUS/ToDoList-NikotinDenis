@@ -1,18 +1,21 @@
 <div class="main-container">
     <h1>Todo List</h1>
 
-    <ul>
+    <ul *ngIf="!isLoading">
         <li *ngFor="let item of todoList">
             <app-to-do-list-item [itemData]="item" (onDelete)="deleteItem($event)" ></app-to-do-list-item>
         </li>
     </ul>
 
+    <div *ngIf="isLoading"  style="height: 100px; width:100%;"> 
+        <span class="loader"></span>
+    </div>
+    
     <div class="add-item-container">
         <mat-form-field>
-            <!-- <input [(ngModel)]="inputedValue" class="add-item-input" placeholder="Add your new todo" type="text"> -->
             <input matInput [(ngModel)]="inputedValue"  placeholder="Add your new todo" type="text">
         </mat-form-field>
-        <button (click)="addItem()" [disabled]="inputedValue.length == 0" class="button button--add">Add task</button>
+        <app-button-component [title]="'Add task'"  [disabled]="inputedValue.length == 0" (onButtonClicked)="addItem()"></app-button-component>
     </div>
 
 </div>

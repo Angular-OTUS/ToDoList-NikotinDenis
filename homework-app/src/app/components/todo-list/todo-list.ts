@@ -1,16 +1,22 @@
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListItem, ToDoListItem } from '../to-do-list-item/to-do-list-item';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { ToDoListItem } from '../to-do-list-item/to-do-list-item';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ButtonComponent } from '../button-component/button-component';
+import { ListItem } from '../../interfaces/list-item';
 
 @Component({
   selector: 'app-todo-list',
-  imports: [CommonModule, FormsModule, ToDoListItem, MatInputModule],
+  imports: [CommonModule, FormsModule, ToDoListItem, ButtonComponent, MatInputModule, MatProgressSpinnerModule],
   templateUrl: './todo-list.html',
-  styleUrl: './todo-list.css'
+  styleUrl: './todo-list.css',
 })
-export class TodoList {
+export class TodoList implements OnInit {
+
+  protected isLoading: boolean = true;
 
   protected inputedValue: string = '';
 
@@ -20,18 +26,24 @@ export class TodoList {
     { id: 3, text: 'Create some angular app' },
   ]
 
+  ngOnInit(): void {
+    setTimeout(()=> {
+      this.isLoading = false;
+    }, 500)
+  }
+
   protected deleteItem(id: number) {
 
-    let index = this.todoList.findIndex((item) =>
-      item.id == id
+    const index = this.todoList.findIndex((item) =>
+      item.id == id,
     );
     this.todoList.splice(index, 1);
   }
 
   protected addItem() {
-    let array = this.todoList.map( item => item.id);
-    let maxIndex = Math.max(...array)
-    this.todoList.push({id: maxIndex+1, text: this.inputedValue})
+    const array = this.todoList.map(item => item.id);
+    const maxIndex = Math.max(...array)
+    this.todoList.push({ id: maxIndex + 1, text: this.inputedValue })
     this.inputedValue = '';
   }
 }
