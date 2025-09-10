@@ -1,4 +1,4 @@
 <div class="item">
     <span>{{itemData.text}}</span>
-    <button (click)="onDeleteClick(itemData.id)" class="button button--delete">Delete</button>
+    <app-button-component (onButtonClicked)="onDeleteClick(itemData.id)" [title]="'Delete'"></app-button-component>
 </div>
