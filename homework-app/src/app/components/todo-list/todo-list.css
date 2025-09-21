@@ -19,9 +19,14 @@ li {
     -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
     -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-    max-width: 500px;
+    max-width: 550px;
     box-sizing: border-box;
     padding: 10px 20px;
+}
+
+.sub-container{
+    display: flex;
+    gap:20px;
 }
 
 
@@ -52,6 +57,24 @@ li {
     outline: 1px solid rgb(167, 167, 167);
 }
 
+textarea{
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.textarea{
+    width: 100%;
+    min-height: 80px;
+}
+.description{
+    resize: none;
+    height: 300px;
+    width: 180px;
+}
+
+.selected{
+    background-color: rgba(76, 87, 156, 0.342)!important;
+}
 
 .button--add {
     background-color: rgb(21, 125, 21);

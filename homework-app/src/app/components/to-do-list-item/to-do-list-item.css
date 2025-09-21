@@ -1,4 +1,4 @@
-.item {
+:host{
     margin-bottom: 10px;
     background-color: rgb(227, 227, 227);
     display: flex;
@@ -8,6 +8,10 @@
     padding: 0px 10px;
     height: 50px;
     border-radius: 10px;
+}
+
+:host:hover{
+    cursor: pointer;
 }
 
 .button--delete {
