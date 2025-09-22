@@ -1,9 +1,10 @@
 /* eslint-disable @angular-eslint/no-output-on-prefix */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TipTextDirective } from '../../directives/tip-text.directive';
 
 @Component({
   selector: 'app-button-component',
-  imports: [],
+  imports: [TipTextDirective],
   templateUrl: './button-component.html',
   styleUrl: './button-component.css',
 })

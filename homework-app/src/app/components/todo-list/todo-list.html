@@ -1,21 +1,33 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <div class="main-container">
     <h1>Todo List</h1>
 
-    <ul *ngIf="!isLoading">
-        <li *ngFor="let item of todoList">
-            <app-to-do-list-item [itemData]="item" (onDelete)="deleteItem($event)" ></app-to-do-list-item>
-        </li>
-    </ul>
+    <div class="sub-container">
 
-    <div *ngIf="isLoading"  style="height: 100px; width:100%;"> 
-        <span class="loader"></span>
-    </div>
-    
-    <div class="add-item-container">
-        <mat-form-field>
-            <input matInput [(ngModel)]="inputedValue"  placeholder="Add your new todo" type="text">
-        </mat-form-field>
-        <app-button-component [title]="'Add task'"  [disabled]="inputedValue.length == 0" (onButtonClicked)="addItem()"></app-button-component>
-    </div>
+        <div>
+            <ul *ngIf="!isLoading">
+                <li *ngFor="let item of todoList">
+                    <app-to-do-list-item appTipText [tipText]="'Элемент списка'" (click)="onItemClicked(item.id)" [ngClass]="selectedItemId == item.id ? 'selected' : '' "  [itemData]="item" (onDelete)="deleteItem($event)" ></app-to-do-list-item>
+                </li>
+            </ul>
 
+            <div *ngIf="isLoading"  style="height: 100px; width:100%;"> 
+                <span class="loader"></span>
+            </div>
+            
+            <div class="add-item-container">
+                <mat-form-field>
+                    <input matInput [(ngModel)]="inputedValue"  placeholder="Add your new todo" type="text">
+                </mat-form-field>
+                <app-button-component [title]="'Add task'"  [disabled]="inputedValue.length == 0" (onButtonClicked)="addItem()"></app-button-component>
+            </div>
+
+            <div>
+                <textarea [(ngModel)]="inputedDescription" class="textarea"></textarea>
+            </div>
+        </div>
+        <div style="height:100%;">
+            <textarea [ngModel]="selectedItem?.description" readonly  class="description"></textarea>
+        </div>
+    </div>
 </div>
