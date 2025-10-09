@@ -1,15 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-import { ComponentRef, Directive, HostListener, inject, Input, Renderer2, ViewContainerRef } from "@angular/core";
+import { ComponentRef, Directive, HostListener, inject, Input, OnDestroy, Renderer2, ViewContainerRef } from "@angular/core";
 import { TipComponent } from "../components/tip-component/tip-component";
 
 @Directive({
     selector: '[appTipText]',
 })
-export class TipTextDirective {
+export class TipTextDirective implements OnDestroy {
+
+
+    ngOnDestroy(): void {
+        this.hideTip();
+    }
 
     @Input() public tipText: string;
 
-    private tipOffset: number = 3;
+    private tipOffset: number = 10;
     private viewContainerRef: ViewContainerRef = inject(ViewContainerRef);
     private renderer: Renderer2 = inject(Renderer2);
     private tipComponentRef: ComponentRef<TipComponent>
@@ -47,11 +53,13 @@ export class TipTextDirective {
 
         this.tipComponentRef = this.viewContainerRef.createComponent(TipComponent);
         this.tipComponentRef.instance.text = this.tipText;
+         this.renderer.appendChild(document.body, this.tipComponentRef.location.nativeElement);
         this.updateTipPosition(event)
     }
 
     private hideTip() {
         if (this.tipComponentRef) {
+            this.renderer.removeChild(document.body, this.tipComponentRef.location.nativeElement);
             this.tipComponentRef.destroy();
             this.tipComponentRef = null;
         }
@@ -64,7 +72,8 @@ export class TipTextDirective {
         const y = event.clientY + this.tipOffset;
 
         this.renderer.setStyle(this.tipComponentRef.location.nativeElement, 'left', `${x}px`);
-        this.renderer.setStyle(this.tipComponentRef.location.nativeElement, 'right', `${y}px`);
-
+        this.renderer.setStyle(this.tipComponentRef.location.nativeElement, 'top', `${y}px`);
     }
+
+
 }
