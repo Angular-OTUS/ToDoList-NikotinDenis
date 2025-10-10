@@ -5,6 +5,7 @@
 import { ApplicationRef, ComponentRef, createComponent, EnvironmentInjector, HostListener, inject, Injectable, Renderer2 } from "@angular/core";
 import { InputedData, ListItem } from "../interfaces/list-item";
 import { EditTodoListItem } from "../components/edit-todo-list-item/edit-todo-list-item";
+import { ToastService } from "./toast-service";
 
 @Injectable({
     providedIn: 'root',
@@ -15,6 +16,7 @@ export class TodoListService {
     private editItemListDialogRef: ComponentRef<EditTodoListItem>;
     private environmentInjector = inject(EnvironmentInjector);
     private appRef = inject(ApplicationRef);
+    private toastService = inject(ToastService)
 
 
 
@@ -38,6 +40,7 @@ export class TodoListService {
         const listItem = this.getListItem(id);
         listItem.text = title;
         this.destroyEditTodoItemTitleDialog();
+        this.toastService.showToast({title:'Success', message: 'To do item edited', status:'success', duration: 3000});
     }
 
     public getListItem(id: number): ListItem {
@@ -60,6 +63,7 @@ export class TodoListService {
         itemListDialogElement.style.top = `${coordinates.y}px`;
 
         this.editItemListDialogRef.instance.id = id;
+        this.editItemListDialogRef.instance.inputtedTitle = this.getListItem(id).text;
     }
 
     private destroyEditTodoItemTitleDialog() {
