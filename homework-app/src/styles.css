@@ -1,9 +1,42 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: "Zalando Sans", sans-serif;
+    overflow: hidden;
+}
+
+body {
+    background: linear-gradient(133deg,#861a33,#22628b,#58b977,#ea825e);
+    background-size: 240% 240%;
+    animation: gradient-animation 24s ease infinite;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .button {
-    color: rgb(153, 153, 153);
+    color: rgb(128, 128, 128);
     border: none;
     border-radius: 10px;
-    height: 60%;
+    height: 80%;
     margin-left: 5px;
     min-width: 100px;
     cursor: pointer;
+}
+
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

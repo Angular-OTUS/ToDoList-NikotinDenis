@@ -1,0 +1,4 @@
+<span class="container">
+    <input [(ngModel)]="inputtedTitle" type="text">
+    <app-button-component [disabled]="!inputtedTitle" [title]="'Сохранить'" (onButtonClicked)="saveChanges()"></app-button-component>
+</span>

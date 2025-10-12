@@ -1,13 +1,20 @@
 <!-- eslint-disable @angular-eslint/template/eqeqeq -->
 <div class="main-container">
-    <h1>Todo List</h1>
+    <h1>ToDo List</h1>
 
     <div class="sub-container">
 
         <div>
             <ul *ngIf="!isLoading">
-                <li *ngFor="let item of todoList">
-                    <app-to-do-list-item appTipText [tipText]="'Элемент списка'" (click)="onItemClicked(item.id)" [ngClass]="selectedItemId == item.id ? 'selected' : '' "  [itemData]="item" (onDelete)="deleteItem($event)" ></app-to-do-list-item>
+                <li *ngFor="let item of getTodoList()">
+                    
+                    <app-to-do-list-item appTipText [tipText]="'Элемент списка'" [itemData]="item" 
+                                         (click)="onItemClicked(item.id)" 
+                                         (dblclick)="onItemDblClicked(item.id)" 
+                                         (onDelete)="deleteItem($event)"
+                                         [ngClass]="selectedItemId == item.id ? 'selected' : '' ">
+                    </app-to-do-list-item>
+                                         
                 </li>
             </ul>
 
@@ -16,18 +23,20 @@
             </div>
             
             <div class="add-item-container">
-                <mat-form-field>
-                    <input matInput [(ngModel)]="inputedValue"  placeholder="Add your new todo" type="text">
-                </mat-form-field>
-                <app-button-component [title]="'Add task'"  [disabled]="inputedValue.length == 0" (onButtonClicked)="addItem()"></app-button-component>
+                <input class="add-item-input" [(ngModel)]="inputedValue"  placeholder="Add your new todo" type="text">
+                <app-button-component  [title]="'Add task'"  [disabled]="inputedValue.length == 0" (onButtonClicked)="addItem()"></app-button-component>
             </div>
 
-            <div>
+            <div style="margin-top: 10px;">
                 <textarea [(ngModel)]="inputedDescription" class="textarea"></textarea>
             </div>
         </div>
+
         <div style="height:100%;">
             <textarea [ngModel]="selectedItem?.description" readonly  class="description"></textarea>
         </div>
+        
     </div>
 </div>
+
+<app-toasts-component></app-toasts-component>
