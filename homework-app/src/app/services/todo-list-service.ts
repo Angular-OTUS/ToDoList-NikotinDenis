@@ -1,11 +1,11 @@
-/* eslint-disable @angular-eslint/prefer-inject */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-empty-function */
 
 import { ApplicationRef, ComponentRef, createComponent, EnvironmentInjector, HostListener, inject, Injectable, Renderer2 } from "@angular/core";
 import { InputedData, ListItem } from "../interfaces/list-item";
 import { EditTodoListItem } from "../components/edit-todo-list-item/edit-todo-list-item";
 import { ToastService } from "./toast-service";
+import { ListItemStatus } from "../enums/todo-enums";
+import { TodoHttpService } from "./todoHttpService";
 
 @Injectable({
     providedIn: 'root',
@@ -16,20 +16,28 @@ export class TodoListService {
     private editItemListDialogRef: ComponentRef<EditTodoListItem>;
     private environmentInjector = inject(EnvironmentInjector);
     private appRef = inject(ApplicationRef);
-    private toastService = inject(ToastService)
+    private toastService = inject(ToastService);
+    private todoHttpService = inject(TodoHttpService);
 
+    public todoList: ListItem[];
 
+    public getTodoList(){
+        this.todoHttpService.getTodoList().subscribe((data) => {
+            this.todoList = data;
+        })
+    }
 
-    public todoList: ListItem[] = [
-        { id: 1, text: 'Buy a new gaming laptop', description: "Brand new gaming laptop get it right now !!!" },
-        { id: 2, text: 'Complete previous task', description: "Dont forget to complete, it is important !!!" },
-        { id: 3, text: 'Create some angular app', description: 'You have to create a new angular app for learning!!!' },
-    ]
+    public fullfillItem(id:number){
+        const item = this.getListItem(id);
+        item.status = ListItemStatus.Completed;
+        this.toastService.showToast({title:'Success', message: 'To do done !', status:'success', duration: 3000});
+        // this.delete(id);
+    }
 
     public addItem(data: InputedData) {
         const array = this.todoList.map(item => item.id);
         const maxIndex = Math.max(...array)
-        this.todoList.push({ id: maxIndex + 1, text: data.text, description: data.description })
+        this.todoList.push({ id: maxIndex + 1, text: data.text, description: data.description, status: ListItemStatus.InProgress })
     }
 
     public delete(id: number) {
