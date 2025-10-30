@@ -13,16 +13,18 @@ import { ToastService } from '../../services/toast-service';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 import { ListItemStatus } from '../../enums/todo-enums';
 import { TodoCreateItem } from '../todo-create-item/todo-create-item';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
   imports: [CommonModule, FormsModule, ToDoListItem,
-            MatInputModule, MatProgressSpinnerModule, TipTextDirective,
-            ToastsComponent, LoadingSpinner,TodoCreateItem],
+    MatInputModule, MatProgressSpinnerModule, TipTextDirective,
+    ToastsComponent, LoadingSpinner, TodoCreateItem, RouterLink, RouterOutlet],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.css',
 })
 export class TodoList implements OnInit {
+
 
   // Массив фильтров
   protected filterStatusList: Signal<string[]> = computed(()=> {
@@ -56,7 +58,7 @@ export class TodoList implements OnInit {
   // Ссылки на сервисы
   private todoListService = inject(TodoListService);
   private toastService = inject(ToastService);
-  // private todoHttpService = inject(TodoHttpService)
+  private router = inject(Router);
 
   // Координаты мыши
   private mouseX: number;
@@ -109,6 +111,7 @@ export class TodoList implements OnInit {
   private selectItemId(itemId: number) {
     this.selectedItemId = itemId;
     this.selectedItem = this.todoListService.getListItem(itemId);
+    // this.router.navigate()
   }
 
   // Редактировать элемент

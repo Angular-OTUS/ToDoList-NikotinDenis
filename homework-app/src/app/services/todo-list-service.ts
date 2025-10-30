@@ -52,7 +52,7 @@ export class TodoListService {
     }
 
     public getListItem(id: number): ListItem {
-        return this.todoList.filter(item => item.id == id)[0]
+        return this.todoList?.filter(item => item.id == id)[0]
     }
 
     public createEditTodoItemDialog(id: number, coordinates:{x:number; y: number}) {

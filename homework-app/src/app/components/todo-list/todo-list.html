@@ -4,10 +4,7 @@
 <div class="main-container">
     <h1>ToDo List</h1>
 
-
-
     <div class="sub-container">
-
         <div>
 
             <div class="filter-container">
@@ -22,6 +19,7 @@
                 <li *ngFor="let item of todoData">
                     
                     <app-to-do-list-item appTipText [tipText]="'Элемент списка'" [itemData]="item" 
+                                         [routerLink]="[item.id]"
                                          (click)="onItemClicked(item.id)" 
                                          (dblclick)="onItemDblClicked(item.id)" 
                                          (onDelete)="deleteItem($event)"
@@ -39,9 +37,7 @@
             
         </div>
 
-        <div class="description-container">
-            <textarea [ngModel]="selectedItem?.description" readonly  class="description"></textarea>
-        </div>
-        
+        <router-outlet></router-outlet>
     </div>
+
 </div>
