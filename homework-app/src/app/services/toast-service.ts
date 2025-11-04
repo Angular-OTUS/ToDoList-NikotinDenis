@@ -10,14 +10,14 @@ export class ToastService{
     
     private currentId = 0;
 
-    public showToast(toast: Toast){
+    public showToast(toast: Toast): void{
         toast.id = this.currentId;
         this.toastsData.push(toast);
         this.removeToast(toast);
         this.currentId ++
     }
 
-    private removeToast(toast: Toast){
+    private removeToast(toast: Toast): void{
         setTimeout(()=> {
             this.toastsData = this.toastsData.filter( toastItem => toastItem.id !== toast.id )
         }, toast.duration)

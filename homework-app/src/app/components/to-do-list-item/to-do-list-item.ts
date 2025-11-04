@@ -1,6 +1,6 @@
 /* eslint-disable @angular-eslint/no-output-on-prefix */
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output  } from '@angular/core';
 import { ButtonComponent } from '../button-component/button-component';
 import { ListItem} from '../../interfaces/list-item';
 import { TipTextDirective } from '../../directives/tip-text.directive';
@@ -14,10 +14,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class ToDoListItem {
 
-  @Input() itemData: ListItem;
-  @Output() onDelete = new EventEmitter<number>();
+  itemData = input<ListItem>();
+  onDelete = output<number>();
 
-  protected onDeleteClick(id: number){
+  protected onDeleteClick(id: number): void{
     this.onDelete.emit(id);
   }
 

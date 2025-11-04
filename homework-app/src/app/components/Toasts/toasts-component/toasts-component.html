@@ -1,5 +1,4 @@
-
-<ng-container *ngFor="let item of getToastData()">
-    <app-toast-component [toast]="item"></app-toast-component>
-</ng-container>
+@for (item of getToastData(); track item.id) {
+    <app-toast-component [toast]="item"/>
+}
 

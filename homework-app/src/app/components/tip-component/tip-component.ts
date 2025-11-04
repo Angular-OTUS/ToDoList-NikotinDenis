@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-tip-component',
@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './tip-component.css',
 })
 export class TipComponent {
-  @Input() text = '';  
+  public text = signal<string>('')
 }

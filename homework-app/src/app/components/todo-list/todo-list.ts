@@ -13,7 +13,7 @@ import { ToastService } from '../../services/toast-service';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 import { ListItemStatus } from '../../enums/todo-enums';
 import { TodoCreateItem } from '../todo-create-item/todo-create-item';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
@@ -25,6 +25,8 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 })
 export class TodoList implements OnInit {
 
+  private todoListService = inject(TodoListService);
+  private toastService = inject(ToastService);
 
   // Массив фильтров
   protected filterStatusList: Signal<string[]> = computed(()=> {
@@ -32,7 +34,6 @@ export class TodoList implements OnInit {
     array.unshift('All');
     return array
   })
-
 
   // Флаг загрузки данных
   protected isLoading: boolean = true;
@@ -55,10 +56,7 @@ export class TodoList implements OnInit {
     }
   }
 
-  // Ссылки на сервисы
-  private todoListService = inject(TodoListService);
-  private toastService = inject(ToastService);
-  private router = inject(Router);
+
 
   // Координаты мыши
   private mouseX: number;
@@ -83,39 +81,35 @@ export class TodoList implements OnInit {
 
   }
 
-
-
   // Удаление элемента
-  protected deleteItem(id: number) {
+  protected deleteItem(id: number): void {
     this.todoListService.delete(id);
     this.toastService.showToast({title:'Info', message: 'To do deleted', status:'info', duration: 3000});
   }
 
 
   // Действие при клике на элемент
-  protected onItemClicked(itemId: number) {
+  protected onItemClicked(itemId: number): void {
     this.selectItemId(itemId);
   }
 
   // Действие при двойном клике на элемент
-  protected onItemDblClicked(itemId: number) {
+  protected onItemDblClicked(itemId: number): void {
     this.editTodoItemTitle(itemId);
   }
 
-  protected onFilter($event){
-    // return this.getTodoList
+  protected onFilter($event): void{
     this.filterValue = $event.target.value 
   }
   
   // Выбор itemId
-  private selectItemId(itemId: number) {
+  private selectItemId(itemId: number): void {
     this.selectedItemId = itemId;
     this.selectedItem = this.todoListService.getListItem(itemId);
-    // this.router.navigate()
   }
 
   // Редактировать элемент
-  private editTodoItemTitle(itemId: number) {
+  private editTodoItemTitle(itemId: number): void {
     this.todoListService.createEditTodoItemDialog(itemId, {x: this.mouseX, y: this.mouseY} );
   }
 
