@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-import { ComponentRef, Directive, HostListener, inject, Input, OnDestroy, Renderer2, ViewContainerRef } from "@angular/core";
+import { ComponentRef, Directive, HostListener, inject, input, OnDestroy, Renderer2, ViewContainerRef } from "@angular/core";
 import { TipComponent } from "../components/tip-component/tip-component";
 
 @Directive({
@@ -8,16 +7,12 @@ import { TipComponent } from "../components/tip-component/tip-component";
 })
 export class TipTextDirective implements OnDestroy {
 
+    private renderer: Renderer2 = inject(Renderer2);
+    private viewContainerRef: ViewContainerRef = inject(ViewContainerRef);
 
-    ngOnDestroy(): void {
-        this.hideTip();
-    }
-
-    @Input() public tipText: string;
+    tipText = input<string>()
 
     private tipOffset: number = 10;
-    private viewContainerRef: ViewContainerRef = inject(ViewContainerRef);
-    private renderer: Renderer2 = inject(Renderer2);
     private tipComponentRef: ComponentRef<TipComponent>
 
     @HostListener('mouseover', ['$event']) onMouseEnter(event: MouseEvent) {
@@ -45,19 +40,23 @@ export class TipTextDirective implements OnDestroy {
         }
     }
 
+    ngOnDestroy(): void {
+        this.hideTip();
+    }
 
-    private showTip(event: MouseEvent) {
+
+    private showTip(event: MouseEvent): void {
         if (this.tipComponentRef) {
             return;
         }
 
         this.tipComponentRef = this.viewContainerRef.createComponent(TipComponent);
-        this.tipComponentRef.instance.text = this.tipText;
-         this.renderer.appendChild(document.body, this.tipComponentRef.location.nativeElement);
+        this.tipComponentRef.instance.text.set(this.tipText());
+        this.renderer.appendChild(document.body, this.tipComponentRef.location.nativeElement);
         this.updateTipPosition(event)
     }
 
-    private hideTip() {
+    private hideTip(): void {
         if (this.tipComponentRef) {
             this.renderer.removeChild(document.body, this.tipComponentRef.location.nativeElement);
             this.tipComponentRef.destroy();
@@ -65,7 +64,7 @@ export class TipTextDirective implements OnDestroy {
         }
     }
 
-    private updateTipPosition(event: MouseEvent) {
+    private updateTipPosition(event: MouseEvent): void {
         if (!this.tipComponentRef) return;
 
         const x = event.clientX + this.tipOffset;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Toast } from '../../../interfaces/toast';
 
 export type ToastStatus = 'success' | 'error' | 'info';
@@ -11,10 +11,10 @@ export type ToastStatus = 'success' | 'error' | 'info';
 })
 export class ToastComponent {
 
-  @Input() toast: Toast;
+  toast = input<Toast>()
 
   public get backgroundColor() {
-    switch (this.toast.status) {
+    switch (this.toast().status) {
       case 'success':
         return 'rgba(105, 227, 5, 0.486)';
       case 'error':

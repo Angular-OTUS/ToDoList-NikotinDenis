@@ -21,12 +21,12 @@ export class TodoCreateItem {
     description: new FormControl(''),
   }) 
 
-  protected onSubmit(){
+  protected onSubmit(): void{
     this.addItem();
   }
 
     // Добавление элемента
-  private addItem() {
+  private addItem(): void{
     this.todoListService.addItem({ text: this.todoListFormGroup.controls.title.value, 
                                    description: this.todoListFormGroup.controls.description.value })
 
